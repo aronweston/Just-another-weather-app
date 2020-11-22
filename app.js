@@ -1,79 +1,32 @@
-const form = document.getElementById("weather-form");
-const output = document.getElementById("output");
+//init weather object
 
-const city = document.getElementById("city");
-const state = document.getElementById("state");
-const country = document.getElementById('country');
+
+const weather = new Weather();
+const ui = new UI();
+
+const form = document.getElementById("weather-form");
 
 const loco = document.getElementById("location");
 // Get location
 loco.addEventListener("click", () => {
-    getLocation();
+    // weather.getWeather();
+    weather.getLocation();
+    ui.output(); 
+    
 });
 
-//Get input data
-form.addEventListener("submit", (e) => {
-    output.innerHTML += `
-    <div class="output">
-            <div class="inline">
-            <h2>Sydney, Australia</h2>
-            <img src="" alt="" class="">
-            // <span>29 Degrees</span>
-        </div>
-        <!-- Current data and time -->
-        <div>
-            <h5>4:00pm, 22nd November, 2020</h5>
-        </div>  
-        <!-- Other data -->
-        <ul>
-            <li>Current temperature: </li>
-            <li>Precipitation</li>
-        </ul>
-        <table>
-        <thead>
-            <th>Sunday</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-        </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-                <td>
-                    <img src="" alt="" class="cal-img">
-                    <span class="cal-predictions">18 / 31</span>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-    `
-    e.preventDefault();
-});
+// let city = data.name; 
+    // let main = data.weather[0].main;
+    // let desc = data.weather[0].description;
+    // let temp = data.main.temp
+    // let maxTemp = data.main.temp_max;
+    // let minTemp = data.main.temp_min;
+    // let feelsLike = data.main.feels_like;
+    // let hum = data.main.humidity;
+    // console.log(main, temp, desc, city, maxTemp, minTemp, feelsLike, hum);
+// //Get input data
+// form.addEventListener("submit", (e) => {
+    
+//     e.preventDefault();
+// });
 
