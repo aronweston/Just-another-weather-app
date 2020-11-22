@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" />
+    <style>
+        .output {
+        border: 1px solid #E1E1E1;
+        border-radius: 4px;
+        padding: 2.5rem 3rem;
+        }
+
+        .inline {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav row">
+    <span></span>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <h3>Weather App</h3>
+        <p>Search below to find the weather in any city and state in Australia</p>
+        <form id="weather-form">
+            <input type="text" id="city" value="" placeholder="City">
+            <input type="text" id="state" placeholder="State">
+            <input type="text" id="country" value="Australia" disabled>
+            <input type="submit" id="submit" value="Search">
+        </form>
+        <span> or </span> <button type="button" value="location" id="location">Use my location</button>
+    </div>
+
+    <div class="row" id="output"></div>
+</div>
+<!-- Scripts -->
+<script src="weather.js"></script>
+<script src="ui.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
