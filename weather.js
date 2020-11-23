@@ -2,124 +2,70 @@ class Weather {
 
     constructor() {
         this.key = 'da6cc8d124882796f1f64ad51e846e3c';
+        this.exclude = 'current,minutely,hourly,alerts'
     }
     
-    getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.getWeather);
-        } else {
-            console.log("Error, not supported on this browser");
+    //Weather API Call
+    async getWeather(pos) {
+        const crd = pos.coords;
+
+        let lat = crd.latitude;
+        let long = crd.longitude;
+
+        //Current weather
+        let current = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${this.key}&units=metric`);
+
+        //Forecast
+        let fiveDay = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=${this.exclude}&appid=${this.key}&units=metric`)
+        
+
+        let now = await current.json();
+        let forecast = await fiveDay.json();
+
+        return {
+            now,
+            forecast
         }
     }
 
-    getWeather(position) {
-        let key = 'da6cc8d124882796f1f64ad51e846e3c';
-        let lat = position.coords.latitude;
-        let long = position.coords.longitude;
-        
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}&units=metric`)
-            .then(res => {
-                if (res.ok) {
-                    console.log("Success");
-                    return res.json()
-                } else {
-                    console.log("Fail", err);
-                }
-            }).then(data => function(){
-                output(data);
-            })
-            .catch(err => console.log(err))
+    // Geolocation validation
+    validation(success, error) {
+        if (!navigator.geolocation) {
+            ui.alert("Geolocation is not supported by your browser", "warning");
+        } else {
+            navigator.geolocation.getCurrentPosition(success, error);
+            ui.startLoader();
+        }
     }
-}
-
-class UI {
-
-    constructor(data) {
-        this.data = data;
-        this.output = document.getElementById("output");
+    //Geolocation error condition
+    error() {
+        ui.alert("Unable to retrieve your location. Please grant location access in your browser.", "warning");
     }
 
-    output(data) {
-        output.innerHTML = `
-        ${data.name}
-        ${this.data.main.temp}
-        `
-    }
-
+    
 }
 
 
-// `
-//         <div class="output">
-//                 <div class="inline">
-//                 <h2>Sydney, Australia</h2>
-//                 <img src="" alt="" class="">
-//                 // <span>29 Degrees</span>
-//             </div>
-//             <!-- Current data and time -->
-//             <div>
-//                 <h5>4:00pm, 22nd November, 2020</h5>
-//             </div>  
-//             <!-- Other data -->
-//             <ul>
-//                 <li>Current temperature: </li>
-//                 <li>Precipitation</li>
-//             </ul>
-//             <table>
-//             <thead>
-//                 <th>Sunday</th>
-//                 <th>Monday</th>
-//                 <th>Tuesday</th>
-//                 <th>Wednesday</th>
-//                 <th>Thursday</th>
-//                 <th>Friday</th>
-//                 <th>Saturday</th>
-//             </thead>
-//                 <tbody>
-//                 <tr>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                     <td>
-//                         <img src="" alt="" class="cal-img">
-//                         <span class="cal-predictions">18 / 31</span>
-//                     </td>
-//                 </tr>
-//             </tbody>
-//             </table>
-//         </div>
-//     `
-          
 
 
+// console.log(now);
+// console.log(forecast);
 
+//  getWeather(position) {
+//         let key = 'da6cc8d124882796f1f64ad51e846e3c';
+//         let lat = position.coords.latitude;
+//         let long = position.coords.longitude;
 
-
-
-
-
-
-
-
-
+//         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&  lon=${long}&appid=${key}&units=metric`)
+//             .then(res => {
+//                 if (res.ok) {
+//                     console.log("Success");
+//                     return res.json()
+//                 } else {
+//                     console.log("Fail", err);
+//                 }
+//             }).then(data => function () {
+//                 ui.output(data);
+//             })
+//             .catch(err => console.log(err))
+//     }
