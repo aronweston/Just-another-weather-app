@@ -42,30 +42,8 @@ class Weather {
         ui.alert("Unable to retrieve your location. Please grant location access in your browser.", "warning");
     }
 
-    
 }
 
 
 
 
-// console.log(now);
-// console.log(forecast);
-
-//  getWeather(position) {
-//         let key = 'da6cc8d124882796f1f64ad51e846e3c';
-//         let lat = position.coords.latitude;
-//         let long = position.coords.longitude;
-
-//         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&  lon=${long}&appid=${key}&units=metric`)
-//             .then(res => {
-//                 if (res.ok) {
-//                     console.log("Success");
-//                     return res.json()
-//                 } else {
-//                     console.log("Fail", err);
-//                 }
-//             }).then(data => function () {
-//                 ui.output(data);
-//             })
-//             .catch(err => console.log(err))
-//     }

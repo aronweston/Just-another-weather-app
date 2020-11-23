@@ -2,7 +2,6 @@
 const weather = new Weather();
 const ui = new UI();
 
-
 const form = document.getElementById("weather-form");
 const loco = document.getElementById("location");
 
