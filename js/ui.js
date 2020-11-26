@@ -5,19 +5,19 @@ class UI {
         this.outputForecast = document.getElementById("output-forecast");
     }
 
+    //Method outputs Open Weather 5 day forecast data to a table in the DOM
     forecast(data) {
-
+        //
         let daily = data.forecast.daily;
 
         let output = this.outputForecast;
         output.className = 'output';
         output.innerHTML = "<h2>Forecast</h2>";
 
-        //Table
+        //Build forecast table
         let table = document.createElement('table');
         table.className = "u-full-width";
 
-        //Table elements
         let head = document.createElement('thead')
         let body = document.createElement('tbody');
         let headTR = document.createElement('tr');
@@ -27,26 +27,27 @@ class UI {
         head.appendChild(headTR);
         body.appendChild(tr);
 
-        //Iterate through the array
+        //Output each days forecast, icon and max/min for the upcoming week 
         daily.forEach(day => {
-            let date = this.getDate(day.dt);
-            let weekDay = this.getDay(day.dt);
+            let date = time.getDate(day.dt);
+            let weekDay = time.getDay(day.dt);
             let min = Math.floor(day.temp.min);
             let max = Math.floor(day.temp.max);
+            //weather png icon 
             let id = day.weather[0].icon;
-            let description = day.weather[0].description;
-            console.log(day.weather);
-            let icon = this.weatherImage(description, id);
-            //Dates 
+            let condition = day.weather[0].description;
+            let icon = this.weatherImage(condition, id);
+
+            //Table header with week day and date 
             let th = document.createElement('th');
             th.innerHTML = `${weekDay} / ${date}`;
             headTR.appendChild(th);
 
-            //Min&Max
+            //Table data with weather data
             let td = document.createElement('td');
             td.innerHTML += `
             <span>${icon}</span>
-            <span>${description}</span>
+            <span>${condition}</span>
             <span>${min}&#8451; / ${max}&#8451;</span>
             `
             tr.appendChild(td);
@@ -55,60 +56,57 @@ class UI {
         output.appendChild(table);
     };
 
-
-
-
+    //Gets todays weather based on your location and outputs information to the DOM.
     currentWeather(data) {
 
-        console.log(data);
-        let time = new Date();
-        //API data variables;
+        //String data
         let city = data.now.name;
-        let main = data.now.weather[0].main.toLowerCase();
-        let desc = data.now.weather[0].description;
-        let sunSet = this.getTime(data.now.sys.sunset);
-        let sunRise = this.getTime(data.now.sys.sunrise);
+        let prediction = data.now.weather[0].main.toLowerCase();
+        let condition = data.now.weather[0].description;
 
+        //Integer data
+        let time = new Date();
+        let sunSet = time.getTime(data.now.sys.sunset);
+        let sunRise = time.getTime(data.now.sys.sunrise);
         let temp = Math.floor(data.now.main.temp);
         let maxTemp = Math.floor(data.now.main.temp_max);
         let minTemp = Math.floor(data.now.main.temp_min);
         let feelsLike = Math.floor(data.now.main.feels_like);
-        let hum = Math.floor(data.now.main.humidity);
+        let humidity = Math.floor(data.now.main.humidity);
+        //Icon
         let id = data.now.weather[0].icon;
-        let icon = this.weatherImage(desc, id);
+        let icon = this.weatherImage(condition, id);
 
-        //Output
+        //Output to the dom
         this.output.innerHTML = `
         <div class="output">
             <span class="header"><h2>${city} / ${temp}&#8451;</h2>${icon}</span>
             <h5>${time}</h5>
-            <h5>The weather is currently ${desc}, with a prediction of ${main}</h5>
+            <h5>The weather is currently ${condition}, with a prediction of further ${prediction}.</h5>
             <ul>
                 <li><span>Current temp: ${temp} &#8451;</span></li>
-                <li><span>Humidity: ${hum} &#37;</span></li>
+                <li><span>Humidity: ${humidity} &#37;</span></li>
                 <li><span>Feels like: ${feelsLike} &#8451;</span></li>
                 <li><span> Max/Min: ${maxTemp} &#8451; / ${minTemp} &#8451;</span></li>
                 <li><span>Sunrise: ${sunRise} / Sunset: ${sunSet}</span></li>
             </ul>
         </div>
         `
-        // <li><span>Should I bring an umbrella? ${umbrella}</span></li>
     }
 
-
-
+    //Takes in the current weather and its corresponding 
     weatherImage(current, id) {
         let icon;
         if (current) {
             icon = `<img src="http://openweathermap.org/img/wn/${id}@2x.png">`
-            // //insert Unsplash api call
+            // //insert Unsplash api call to set a random image to the background based on condtionals
             // document.body.style.backgroundImage = "url('${url}')";
             // document.body.style.backgroundSize = "cover";
         }
         return icon;
-
     }
 
+    //Loader for error and success messages
     alert(msg, className) {
         const row = document.querySelector('.main-row');
         const container = document.querySelector('.container');
@@ -129,55 +127,4 @@ class UI {
         this.loader.classList.add("hidden");
     }
 
-    getDate(input) {
-        let date = new Date(input * 1000);
-        let dd = String(date.getDate()).padStart(2, '0');
-        let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-        let yyyy = date.getFullYear();
-        date = `${dd}/${mm}/${yyyy}`
-        return date;
-    }
-
-    getTime(input) {
-        let time = new Date(input * 1000);
-        let hours = time.getHours();
-        let minutes = "0" + time.getMinutes();
-        time = `${hours}:${minutes.substr(-2)}`;
-
-        if (hours < 12) {
-            return time + ' am';
-        } else {
-            let time =  `${hours - 12}:${minutes.substr(-2)}`;
-            return time + ' pm';
-        }
-        
-    }
-
-    getDay(input) {
-        let newDate = new Date(input * 1000);
-        let getDay = newDate.getDay();
-        let day;
-        if (getDay === 0) {
-            day = 'Sunday'
-        }
-        if (getDay === 1) {
-            day = 'Monday'
-        }
-        if (getDay === 2) {
-            day = 'Tuesday'
-        }
-        if (getDay === 3) {
-            day = 'Wednesday'
-        }
-        if (getDay === 4) {
-            day = 'Thursday'
-        }
-        if (getDay === 5) {
-            day = 'Friday'
-        }
-        if (getDay === 6) {
-            day = 'Saturday'
-        }
-        return day;
-    }
 }

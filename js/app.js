@@ -1,11 +1,17 @@
-//init weather and ui objects
+//Init Weather, UI and Time objects 
 const weather = new Weather();
 const ui = new UI();
+const time = new Time();
 
+//Form and button variables 
 const form = document.getElementById("weather-form");
-const loco = document.getElementById("location");
+const locationBtn = document.getElementById("location");
 
-loco.addEventListener("click", () => {
+
+/* Click event to call location validation function. Success callback executes the getWeather() 
+and subsequent API call to the OpenWeatherAPI */
+
+locationBtn.addEventListener("click", () => {
     output.innerHTML = '';
     // Validation
     weather.validation(success, weather.error);
