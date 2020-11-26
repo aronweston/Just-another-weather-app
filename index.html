@@ -8,44 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
         integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
         crossorigin="anonymous" />
-    <style>
-        .output {
-            border: 1px solid #E1E1E1;
-            border-radius: 4px;
-            padding: 2.5rem 3rem;
-        }
-
-        .inline {
-            display: inline;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        .alert {
-            padding: 1rem;
-            border-radius: 4px;
-            margin: 1rem 0;
-            color: black;
-            font-size: 16px;
-
-        }
-
-        .warning {
-            background-color: #f8d7da;
-            ;
-        }
-
-        .loading {
-            background-color: black;
-            color: white;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -53,23 +17,16 @@
         <div id="loader" class="alert loading hidden">Loading...</div>
         <div class="row main-row">
             <h3>Weather App</h3>
-            <!-- <form id="weather-form">
-            <input type="text" id="city" value="" placeholder="City">
-            <input type="text" id="state" placeholder="State">
-            <input type="text" id="country" value="Australia" disabled>
-            <input type="submit" id="submit" value="Search">
-            </form> -->
             <button type="button" class="button-primary" value="location" id="location">Get my current weather</button>
         </div>
         <div class="row" id="output"></div>
         <div class="row" id="output-forecast"></div>
     </div>
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
     <script src="weather.js"></script>
     <script src="ui.js"></script>
     <script src="app.js"></script>
 </body>
 
 </html>
-

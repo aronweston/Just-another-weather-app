@@ -1,11 +1,26 @@
 class Weather {
 
     constructor() {
-        this.key = 'da6cc8d124882796f1f64ad51e846e3c';
+        this.key = config.weather_key;
         this.exclude = 'current,minutely,hourly,alerts'
     }
+
+    //1.  Geolocation validation
+    validation(success, error) {
+        if (!navigator.geolocation) {
+            ui.alert("Geolocation is not supported by your browser", "warning");
+        } else {
+            navigator.geolocation.getCurrentPosition(success, error);
+            ui.startLoader();
+        }
+    }
     
-    //Weather API Call
+    //Geolocation error condition
+    error() {
+        ui.alert("Unable to retrieve your location. Please grant location access in your browser.", "warning");
+    }
+    
+    //2. Weather API Call
     async getWeather(pos) {
         const crd = pos.coords;
 
@@ -28,20 +43,7 @@ class Weather {
         }
     }
 
-    // Geolocation validation
-    validation(success, error) {
-        if (!navigator.geolocation) {
-            ui.alert("Geolocation is not supported by your browser", "warning");
-        } else {
-            navigator.geolocation.getCurrentPosition(success, error);
-            ui.startLoader();
-        }
-    }
-    //Geolocation error condition
-    error() {
-        ui.alert("Unable to retrieve your location. Please grant location access in your browser.", "warning");
-    }
-
+    
 }
 
 
