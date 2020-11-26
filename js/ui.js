@@ -7,7 +7,7 @@ class UI {
 
     //Method outputs Open Weather 5 day forecast data to a table in the DOM
     forecast(data) {
-        //
+        //Forecast data array
         let daily = data.forecast.daily;
 
         let output = this.outputForecast;
@@ -63,9 +63,11 @@ class UI {
         let city = data.now.name;
         let prediction = data.now.weather[0].main.toLowerCase();
         let condition = data.now.weather[0].description;
+        console.log(condition);
+        this.backgroundImage(condition + '-weather');
 
         //Integer data
-        let time = new Date();
+        let today = new Date();
         let sunSet = time.getTime(data.now.sys.sunset);
         let sunRise = time.getTime(data.now.sys.sunrise);
         let temp = Math.floor(data.now.main.temp);
@@ -77,11 +79,12 @@ class UI {
         let id = data.now.weather[0].icon;
         let icon = this.weatherImage(condition, id);
 
+
         //Output to the dom
         this.output.innerHTML = `
         <div class="output">
             <span class="header"><h2>${city} / ${temp}&#8451;</h2>${icon}</span>
-            <h5>${time}</h5>
+            <h5>${today}</h5>
             <h5>The weather is currently ${condition}, with a prediction of further ${prediction}.</h5>
             <ul>
                 <li><span>Current temp: ${temp} &#8451;</span></li>
@@ -89,21 +92,38 @@ class UI {
                 <li><span>Feels like: ${feelsLike} &#8451;</span></li>
                 <li><span> Max/Min: ${maxTemp} &#8451; / ${minTemp} &#8451;</span></li>
                 <li><span>Sunrise: ${sunRise} / Sunset: ${sunSet}</span></li>
+                <button type="button" class="button-primary" value="location" id="location"> Get my current weather</button>
             </ul>
         </div>
         `
     }
 
     //Takes in the current weather and its corresponding 
-    weatherImage(current, id) {
+    weatherImage(condition, id) {
         let icon;
-        if (current) {
+        if (condition) {
             icon = `<img src="http://openweathermap.org/img/wn/${id}@2x.png">`
-            // //insert Unsplash api call to set a random image to the background based on condtionals
-            // document.body.style.backgroundImage = "url('${url}')";
-            // document.body.style.backgroundSize = "cover";
         }
         return icon;
+    }
+
+    //Set body background image to the search query of the current weather
+    backgroundImage(condition) {
+        if (condition) {
+            unsplash.getPhoto(condition)
+                .then(photo => {
+                    console.log(photo);
+                    //Find random index in an array
+                    const random = photo.results[Math.floor(Math.random() * photo.results.length)];
+                    //Random image
+                    const img = random.urls.regular; 
+                    //Set img to body
+                    document.body.style.backgroundImage = `url('${img}')`; 
+                    document.body.style.backgroundSize = 'cover'; 
+
+                })
+                .catch(err => console.error(err));
+        }
     }
 
     //Loader for error and success messages

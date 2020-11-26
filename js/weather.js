@@ -14,12 +14,12 @@ class Weather {
             ui.startLoader();
         }
     }
-    
+
     //Geolocation error condition
     error() {
         ui.alert("Unable to retrieve your location. Please grant location access in your browser.", "warning");
     }
-    
+
     //2. Weather API Call
     async getWeather(pos) {
         const crd = pos.coords;
@@ -32,7 +32,7 @@ class Weather {
 
         //Forecast
         let fiveDay = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=${this.exclude}&appid=${this.key}&units=metric`)
-        
+
 
         let now = await current.json();
         let forecast = await fiveDay.json();
@@ -43,9 +43,21 @@ class Weather {
         }
     }
 
-    
+    app () {
+        output.innerHTML = '';
+        // Validation
+        this.validation(success, weather.error);
+
+        function success(pos) {
+            this.getWeather(pos)
+                .then(data => {
+                    ui.endLoader();
+                    ui.currentWeather(data);
+                    ui.forecast(data);
+                })
+                .catch(err => console.error(err));
+        }
+    }
+
+
 }
-
-
-
-

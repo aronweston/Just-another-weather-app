@@ -28,7 +28,7 @@ class Time {
         if (hours < 12) {
             return time + ' am';
         } else {
-            let time =  `${hours - 12}:${minutes.substr(-2)}`;
+            let time = `${hours - 12}:${minutes.substr(-2)}`;
             return time + ' pm';
         }
     }
