@@ -16,7 +16,7 @@ This file has two main methods: `forecast(data)` and `currentWeather(data)`. Bot
 
 ### 4. Time.js
 
-This is a simple library that helps with time conversion from UTC timestamps to 12 and 24 hour time. 
+This is a simple library I made that helps with time conversion from UTC timestamps to 12 and 24 hour time. 
 
 ## TO DO 
 
@@ -24,5 +24,11 @@ This is a simple library that helps with time conversion from UTC timestamps to 
 - [x] Build the UI.js file to:
     - [x] Build a current weather update based on the users location.
     - [x] Build a 5 day forecast based on the users location.
-- [ ] Connect the Unsplash API to output a background image to the body that corresponds with the weather.
+- [x] Connect the Unsplash API to output a background image to the body that corresponds with the weather.
+- [] Connect button to refresh page through event bubbling
+
+
+## Bugs
+- [ ] UI.js - Background image conditional for night produces some random and non related images; perhaps chose the first image of the array instead of random. 
+- [ ] WEATHER.js - Console Warning: Violation Only request geolocation information in response to a user gesture. Useful links: [1](https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture)
 - [ ] CSS: Forecast table overflow from container

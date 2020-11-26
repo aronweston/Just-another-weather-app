@@ -63,11 +63,10 @@ class UI {
         let city = data.now.name;
         let prediction = data.now.weather[0].main.toLowerCase();
         let condition = data.now.weather[0].description;
-        console.log(condition);
-        this.backgroundImage(condition + '-weather');
-
+        
         //Integer data
         let today = new Date();
+        let currentTime = today.getHours();
         let sunSet = time.getTime(data.now.sys.sunset);
         let sunRise = time.getTime(data.now.sys.sunrise);
         let temp = Math.floor(data.now.main.temp);
@@ -79,6 +78,15 @@ class UI {
         let id = data.now.weather[0].icon;
         let icon = this.weatherImage(condition, id);
 
+
+        this.backgroundImage(condition + '-weather');
+
+        // //Set background image based on wether its night or day
+        // if (currentTime > parseFloat(sunSet)) {
+        //     this.backgroundImage(condition + '-evening');
+        // } else {
+        //     this.backgroundImage(condition + '-weather');
+        // }
 
         //Output to the dom
         this.output.innerHTML = `
@@ -120,7 +128,6 @@ class UI {
                     //Set img to body
                     document.body.style.backgroundImage = `url('${img}')`; 
                     document.body.style.backgroundSize = 'cover'; 
-
                 })
                 .catch(err => console.error(err));
         }

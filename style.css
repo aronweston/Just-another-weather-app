@@ -43,3 +43,7 @@ ul {
 .hidden {
     display: none;
 }
+
+.container {
+    padding: 5rem;
+}

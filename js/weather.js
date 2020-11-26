@@ -5,7 +5,7 @@ class Weather {
         this.exclude = 'current,minutely,hourly,alerts'
     }
 
-    //1.  Geolocation validation
+    // Geolocation validation - check if 
     validation(success, error) {
         if (!navigator.geolocation) {
             ui.alert("Geolocation is not supported by your browser", "warning");
@@ -42,22 +42,5 @@ class Weather {
             forecast
         }
     }
-
-    app () {
-        output.innerHTML = '';
-        // Validation
-        this.validation(success, weather.error);
-
-        function success(pos) {
-            this.getWeather(pos)
-                .then(data => {
-                    ui.endLoader();
-                    ui.currentWeather(data);
-                    ui.forecast(data);
-                })
-                .catch(err => console.error(err));
-        }
-    }
-
 
 }
