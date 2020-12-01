@@ -58,35 +58,29 @@ class UI {
 
     //Gets todays weather based on your location and outputs information to the DOM.
     currentWeather(data) {
-
+        let current = data.now;
         //String data
-        let city = data.now.name;
-        let prediction = data.now.weather[0].main.toLowerCase();
-        let condition = data.now.weather[0].description;
+        let city = current.name;
+        let prediction = current.weather[0].main.toLowerCase();
+        let condition = current.weather[0].description;
+        let detail = current.weather[1].description;
         
         //Integer data
         let today = new Date();
         let currentTime = today.getHours();
-        let sunSet = time.getTime(data.now.sys.sunset);
-        let sunRise = time.getTime(data.now.sys.sunrise);
-        let temp = Math.floor(data.now.main.temp);
-        let maxTemp = Math.floor(data.now.main.temp_max);
-        let minTemp = Math.floor(data.now.main.temp_min);
-        let feelsLike = Math.floor(data.now.main.feels_like);
-        let humidity = Math.floor(data.now.main.humidity);
+        let sunSet = time.getTime(current.sys.sunset);
+        let sunRise = time.getTime(current.sys.sunrise);
+        let temp = Math.floor(current.main.temp);
+        let maxTemp = Math.floor(current.main.temp_max);
+        let minTemp = Math.floor(current.main.temp_min);
+        let feelsLike = Math.floor(current.main.feels_like);
+        let humidity = Math.floor(current.main.humidity);
         //Icon
-        let id = data.now.weather[0].icon;
+        let id = current.weather[0].icon;
         let icon = this.weatherImage(condition, id);
 
-
-        this.backgroundImage(condition + '-weather');
-
-        // //Set background image based on wether its night or day
-        // if (currentTime > parseFloat(sunSet)) {
-        //     this.backgroundImage(condition + '-evening');
-        // } else {
-        //     this.backgroundImage(condition + '-weather');
-        // }
+        //Generate random background image from Unsplash API
+        this.backgroundImage(detail);
 
         //Output to the dom
         this.output.innerHTML = `
@@ -121,12 +115,12 @@ class UI {
             unsplash.getPhoto(condition)
                 .then(photo => {
                     console.log(photo);
-                    //Find random index in an array
-                    const random = photo.results[Math.floor(Math.random() * photo.results.length)];
+                    
                     //Random image
-                    const img = random.urls.regular; 
-                    //Set img to body
+                    const img = photo.urls.regular; 
+                    // Set img to body
                     document.body.style.backgroundImage = `url('${img}')`; 
+
                     document.body.style.backgroundSize = 'cover'; 
                 })
                 .catch(err => console.error(err));
