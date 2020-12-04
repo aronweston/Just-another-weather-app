@@ -63,11 +63,9 @@ class UI {
         let city = current.name;
         let prediction = current.weather[0].main.toLowerCase();
         let condition = current.weather[0].description;
-        let detail = current.weather[1].description;
         
         //Integer data
         let today = new Date();
-        let currentTime = today.getHours();
         let sunSet = time.getTime(current.sys.sunset);
         let sunRise = time.getTime(current.sys.sunrise);
         let temp = Math.floor(current.main.temp);
@@ -80,7 +78,7 @@ class UI {
         let icon = this.weatherImage(condition, id);
 
         //Generate random background image from Unsplash API
-        this.backgroundImage(detail);
+        this.backgroundImage(condition);
 
         //Output to the dom
         this.output.innerHTML = `
@@ -100,7 +98,7 @@ class UI {
         `
     }
 
-    //Takes in the current weather and its corresponding 
+    //Takes in the current weather and its corresponding weather image into the forecast table 
     weatherImage(condition, id) {
         let icon;
         if (condition) {
