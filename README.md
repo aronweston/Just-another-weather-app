@@ -25,7 +25,7 @@ This is a simple library I made that helps with time conversion from UTC timesta
     - [x] Build a current weather update based on the users location.
     - [x] Build a 5 day forecast based on the users location.
 - [x] Connect the Unsplash API to output a background image to the body that corresponds with the weather.
-- [] Connect button to refresh page through event bubbling
+- [ ] Connect button to refresh page through event bubbling
 
 
 ## Bugs
